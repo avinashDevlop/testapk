@@ -16,12 +16,12 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x'
+        python-version: '3.11'  # Downgrade to Python 3.11
 
     - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt install -y python3-pip build-essential
+        sudo apt install -y python3-pip build-essential python3-setuptools
         pip install buildozer cython
 
     - name: Build APK
@@ -31,7 +31,7 @@ jobs:
         mv ./bin/*.apk ${{ github.workspace }}/FRSapp.apk
 
     - name: Upload APK
-      uses: actions/upload-artifact@v3  # Updated from v2 to v3
+      uses: actions/upload-artifact@v3
       with:
         name: FRSapp-debug.apk
         path: ${{ github.workspace }}/FRSapp.apk
